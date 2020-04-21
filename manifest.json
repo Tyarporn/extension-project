@@ -1,12 +1,19 @@
 {
   "manifest_version": 2,
-    "version": "1.0",
+  "version": "1.0",
   "name": "Annoybot",
-  "description": "Don't forget to go outside! (or else...)",
-  "content_scripts": [
-    {
-      "matches": ["<all_urls>"],
-      "js": ["p5.js", "annoy.js"]
-    }
-  ]
+  "description":
+  "Don't forget to look away from the computer sometimes! (or else...😈)
+  INSTRUCTIONS: Go to options to set the time between each message. Then, reload the page and let mayhem set in!",
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "content_scripts":[
+  {
+    "matches": ["<all_urls>"],
+    "js": ["p5.js", "annoy.js"]
   }
+  ],
+  "permissions": ["activeTab", "storage"]
+}

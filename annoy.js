@@ -1,7 +1,18 @@
 console.log('first');//debug to know its running
+
+ // var tag = document.createElement("div");
+ // tag.setAttribute("id", "sketch-holder");
+
 var s = function(sketch) {//instance mode
   console.log('second');//debug to know when instance mode is active
-  var phrases = ["Wake up and smell the roses!", "It's time to go outside", "Are you really gonna waste another minute here?", "I hear its a beautiful day today!", "You look fine...show it to the world!", "Corona virus can't bring you down"];//arbitrary phrases
+  var phrases = ["Wake up and smell the roses!",
+                "It's time to go outside",
+                "Are you really gonna waste another minute here?",
+                "I hear its a beautiful day today!", 
+                "You look fine...show it to the world!",
+                "Corona virus can't bring you down",
+                "Don't strain your eyes!",
+                "Go exercise or something idk"];//arbitrary phrases
   var currentTime;
   var startTime;
   var canvas;
@@ -13,12 +24,13 @@ chrome.storage.sync.get(['time'], function(result) {//syncs the time from option
 
   sketch.setup = function() {//setup needs sketch. due to instance mode
     canvas = sketch.createCanvas(sketch.windowWidth, sketch.windowHeight);
+    //canvas.parent('sketch-holder');
     canvas.position(0, 0);
-    canvas.style('z-index', -10);
+    //canvas.style('z-index', -10);
     startTime = sketch.minute();//initialize start time with the current minutes
     currentTime = sketch.minute();//initialize current time with current minutes
     canvas.style('pointer-events', 'none'); //allows user to click on things
-    //background(255);//testing canvas size
+    //sketch.background(100);//testing canvas size
     //sketch.frameRate(1);//slows sketch down
   //  console.log('setting up, ' + stepTime);
   }
@@ -31,7 +43,7 @@ console.log(parseInt(stepTime)+3);//testing parseint and step time
     currentTime = sketch.minute();//updates current time every loop
     if (currentTime == (startTime + parseInt(stepTime))) { //use this to change how many min; runs if current time is x amount of mins away from start time
       console.log("mid1: " + startTime + ", " + currentTime)//test if loop works
-      sketch.text(sketch.random(phrases), sketch.random(sketch.windowHeight), sketch.random(sketch.windowWidth));
+      sketch.text(sketch.random(phrases), sketch.random(sketch.windowWidth), sketch.random(sketch.windowHeight));
       startTime = sketch.minute();//update start time to begin new cycle
       console.log("mid2: " + startTime + ", " + currentTime)//test if phrase popped up
     }
@@ -40,5 +52,11 @@ console.log(parseInt(stepTime)+3);//testing parseint and step time
     }
     console.log("last: " + startTime + ", " + currentTime)//test when you exit draw
   }
+
+  sketch.windowResized= function() {
+    sketch.resizeCanvas(sketch.windowWidth, sketch.windowHeight);
+}
 }
   var myp5 = new p5(s);//initialize the p5 sketch
+
+ //document.body.appendChild(tag);
